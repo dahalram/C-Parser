@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+/* Global declarations */ /* Variables */
+int charClass;
+char lexeme [100];
+char nextChar;
+int lexLen;
+int token;
+int nextToken;
+FILE *in_fp, *fopen();
+
 /* Character classes */
 #define LETTER 0
 #define DIGIT 1
@@ -213,11 +222,20 @@ int lex() {
 
 /* Driver function
 */
-int main() {
+main() {
   FILE *f;
   char c;
   f = fopen("input.txt", "rt");
 
+  /* Open the input data file and process its contents */
+  if ((in_fp = fopen("front.in", "r")) == NULL) {
+    printf("ERROR - cannot open front.in \n");
+  } else {
+    getChar();
+    do {
+      lex();
+    } while (nextToken != EOF);
+  }
+
   fclose(f);
-  return 0;
 }
