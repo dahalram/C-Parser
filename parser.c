@@ -222,11 +222,25 @@ int lex() {
 
 /* Driver function
 */
-main() {
-  FILE *f;
-  char c;
-  f = fopen("input.txt", "rt");
+void main(int argc, char *argv[]) {
 
+  if (argc != 2) {
+    // TODO Print
+  } else {
+      /* Open the input data file and process its contents */
+      if ((in_fp = fopen(argv[1], "r")) == NULL) {
+        printf("ERROR - cannot open %s \n", argv[1]);
+      } else {
+        // TODO
+        getChar();
+
+        do {
+          lex();
+          expr();
+        } while (nextToken != EOF);
+      }
+
+  }
   /* Open the input data file and process its contents */
   if ((in_fp = fopen("front.in", "r")) == NULL) {
     printf("ERROR - cannot open front.in \n");
@@ -234,6 +248,7 @@ main() {
     getChar();
     do {
       lex();
+      // expr();
     } while (nextToken != EOF);
   }
 
