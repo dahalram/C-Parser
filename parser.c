@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-/* Global declarations */ /* Variables */
+/* Global declarations */
+/* Variables */
 int charClass;
 char lexeme [100];
 char nextChar;
@@ -11,6 +12,11 @@ int lexLen;
 int token;
 int nextToken;
 FILE *in_fp, *fopen();
+
+char *line = NULL;
+int row_num = 0;
+int col_num = 0;
+int char_index;
 
 /* Character classes */
 #define LETTER 0
@@ -220,6 +226,11 @@ int lex() {
     return nextToken;
 } /* End of function lex */
 
+void error() {
+  printf("Syntax error in line %d at column %d\n", row_num, col_num);
+  exit(0);
+}
+
 /* Driver function
 */
 void main(int argc, char *argv[]) {
@@ -231,26 +242,21 @@ void main(int argc, char *argv[]) {
       if ((in_fp = fopen(argv[1], "r")) == NULL) {
         printf("ERROR - cannot open %s \n", argv[1]);
       } else {
-        // TODO
-        getChar();
+        while ((read = getline(&line, &len, in_fp)) != -1) {
+          row_num++;
+          char_index = 0;
+          col_num = 1;
+          getChar();
 
-        do {
-          lex();
-          expr();
-        } while (nextToken != EOF);
+          if (line != NULL) {
+            do {
+              lex();
+              expr();
+            } while (nextToken != EOF);
+          }
+          printf("\n\n");
+        }
       }
-
-  }
-  /* Open the input data file and process its contents */
-  if ((in_fp = fopen("front.in", "r")) == NULL) {
-    printf("ERROR - cannot open front.in \n");
-  } else {
-    getChar();
-    do {
-      lex();
-      // expr();
-    } while (nextToken != EOF);
-  }
-
-  fclose(f);
+    }
+    // End of main 
 }
