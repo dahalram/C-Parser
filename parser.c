@@ -279,6 +279,9 @@ int main(int argc, char *argv[]) {
         printf("ERROR - cannot open %s \n", argv[1]);
       } else {
         while ((read = getline(&line_exp, &len, in_fp)) != -1) {
+          // if (line_exp == ' ') {
+          //   return -1;
+          // }
           row_num++;
           char_index = 0;
           col_num = 1;
