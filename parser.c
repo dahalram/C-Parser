@@ -1,4 +1,6 @@
 // Parser
+/* Author: Ram Hari Dahal
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
