@@ -253,12 +253,12 @@ int lex() {
 */
 void error() {
   printf("Syntax error in line %d at column %d\n", row_num, col_num);
-  char *read;
-  read = (char*) malloc(char_index);
-  memset(read, '\0', sizeof(read));
-  strncpy(read, line_exp, end_index-1);
-  printf("Error occurs at character %c\n \twhile parsing %s\n", end_char, read);
-  free(read);
+  char *readline;
+  readline = (char*) malloc(char_index);
+  memset(readline, '\0', sizeof(readline));
+  strncpy(readline, line_exp, end_index-1);
+  printf("Error occurs at character %c\n \twhile parsing %s\n", end_char, readline);
+  free(readline);
   // exit(0);
 }
 
@@ -291,8 +291,8 @@ int main(int argc, char *argv[]) {
                 break;
               }
             } while (nextToken != EOF);
-          } else {
-            printf("Empty expression\n");
+          // } else {
+          //   printf("Empty expression\n");
           }
           printf("\n");
         }
