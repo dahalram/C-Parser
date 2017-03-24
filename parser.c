@@ -19,16 +19,16 @@ int row_num = 0;
 int col_num = 1;
 int char_index;
 int end_index;
-char end_index;
+char end_char;
 
 /* Function declarations */
 void addChar();
 void getChar();
 void getNonBlank();
 int lex();
-void factor();
-void term();
-void expr();
+int factor();
+int term();
+int expr();
 void error();
 
 /* Character classes */
@@ -51,7 +51,7 @@ void error();
 /* Return value -1 if the error occurred.
 */
 int factor() {
-  printf("Enter <factor>\n", );
+  printf("Enter <factor>\n");
 
   if (nextToken == IDENT || nextToken == INT_LIT) {
     // Get the next token
@@ -71,7 +71,7 @@ int factor() {
       return -1;
     }
   }
-  printf("Exit <factor>\n", );
+  printf("Exit <factor>\n");
   return 0;
 } /* End of fucntion factor */
 
@@ -91,13 +91,13 @@ int term() {
   /* As long as the next token is * or /, get the
     next token and parse the next factor
    */
-  while nextToken == MULTI_OP || nextToken == DIV_OP) {
+  while (nextToken == MULT_OP || nextToken == DIV_OP) {
     lex();
     if (factor() == -1) {
       return -1;
     }
   }
-  printf("Exit <term>\n", );
+  printf("Exit <term>\n");
   return 0;
 } /* End of function term */
 
@@ -257,21 +257,21 @@ void error() {
   read = (char*) malloc(char_index);
   memset(read, '\0', sizeof(read));
   strncpy(read, line_exp, end_index-1);
-  printf("Error at character %c while parsing.\n", read, end_char);
+  printf("Error occurs at character %c\n \twhile parsing %s\n", end_char, read);
   free(read);
   // exit(0);
 }
 
 /* Driver function
 */
-void main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
   size_t len = 0;
   ssize_t read;
 
   /* Correct execution should have argc value = 2
   */
   if (argc != 2) {
-    printf("Error in parsing or reading the filename.\n");
+    printf("Error in executing or reading the filename.\n");
     exit(0);
   } else {
       /* Open the input data file and process its contents */
@@ -298,5 +298,6 @@ void main(int argc, char *argv[]) {
         }
       }
     }
+    return 0;
     /* End of main */
 }
